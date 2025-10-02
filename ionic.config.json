@@ -1,0 +1,8 @@
+{
+  "name": "ethiopian-calculator",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "fd228d84"
+}
