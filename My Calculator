@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethiopian Flag Calculator with Star</title>
+    <style>
+        /* --- Style for the Page Background --- */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e9e9e9; /* Neutral background to highlight the calculator */
+        }
+
+        /* --- Style for the Calculator --- */
+        .calculator {
+            position: relative; /* Needed for positioning the star absolutely */
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            width: 320px;
+            border: 2px solid #333; /* Added a border for definition */
+            
+            /* Ethiopian Flag Colors applied directly to the calculator */
+            background: linear-gradient(
+                to bottom, 
+                #078930 0%, /* Green */
+                #078930 33.33%, 
+                #FEDD00 33.33%, /* Yellow */
+                #FEDD00 66.66%, 
+                #DA121A 66.66%, /* Red */
+                #DA121A 100%
+            );
+            /* To ensure content is above the star */
+            z-index: 1; 
+        }
+
+        /* --- Styling text for readability against the flag --- */
+        h2 {
+            margin-top: 0;
+            color: white;
+            text-shadow: 0 0 5px rgba(0,0,0,0.7), 0 0 3px rgba(0,0,0,0.5); /* Shadow to make text readable */
+            position: relative; /* Ensure text is above the star */
+            z-index: 2;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            position: relative; /* Ensure inputs are above the star */
+            z-index: 2;
+        }
+
+        input[type="number"] {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+            position: relative; /* Ensure buttons are above the star */
+            z-index: 2;
+        }
+
+        button {
+            padding: 12px;
+            border: 1px solid rgba(0,0,0,0.3);
+            border-radius: 5px;
+            background-color: #0056b3;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #003d82;
+        }
+
+        #clear-btn {
+            background-color: #c82333;
+        }
+
+        #clear-btn:hover {
+            background-color: #a21b29;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            min-height: 30px; /* Prevents layout shift */
+            text-shadow: 0 0 5px rgba(0,0,0,0.7), 0 0 3px rgba(0,0,0,0.5); /* Shadow to make text readable */
+            position: relative; /* Ensure result is above the star */
+            z-index: 2;
+        }
+
+        /* --- Style for the Ethiopian Star Emblem --- */
+        .calculator::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px; /* Size of the outer circle */
+            height: 100px; /* Size of the outer circle */
+            background-color: #2D63C8; /* Blue circle */
+            border-radius: 50%; /* Make it a circle */
+            z-index: 0; /* Place behind calculator content */
+            opacity: 0.85; /* Slightly transparent to see flag behind it */
+        }
+
+        .calculator::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px; /* Size of the star */
+            height: 60px; /* Size of the star */
+            background-color: #FEDD00; /* Yellow star */
+            clip-path: polygon(
+                50% 0%, 
+                61% 35%, 
+                98% 35%, 
+                68% 57%, 
+                79% 91%, 
+                50% 70%, 
+                21% 91%, 
+                32% 57%, 
+                2% 35%, 
+                39% 35%
+            );
+            z-index: 1; /* Place above the blue circle, below calculator content */
+            opacity: 0.95; /* Slightly transparent to see flag behind it */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h2>Simple Calculator</h2>
+
+        <div class="input-group">
+            <input type="number" id="num1" placeholder="Enter first number">
+        </div>
+        <div class="input-group">
+            <input type="number" id="num2" placeholder="Enter second number">
+        </div>
+
+        <div class="buttons">
+            <button onclick="calculate('add')">+</button>
+            <button onclick="calculate('subtract')">-</button>
+            <button onclick="calculate('multiply')">*</button>
+            <button onclick="calculate('divide')">/</button>
+        </div>
+        
+        <button id="clear-btn" onclick="clearResult()">Clear</button>
+
+        <p id="result">Result:</p>
+    </div>
+
+    <script>
+        // --- JavaScript Logic (No changes needed here) ---
+        function calculate(operation) {
+            const num1Input = document.getElementById('num1');
+            const num2Input = document.getElementById('num2');
+            const resultElement = document.getElementById('result');
+
+            const num1 = parseFloat(num1Input.value);
+            const num2 = parseFloat(num2Input.value);
+
+            if (isNaN(num1) || isNaN(num2)) {
+                resultElement.textContent = "Please enter valid numbers.";
+                return;
+            }
+
+            let result;
+
+            switch (operation) {
+                case 'add':
+                    result = num1 + num2;
+                    break;
+                case 'subtract':
+                    result = num1 - num2;
+                    break;
+                case 'multiply':
+                    result = num1 * num2;
+                    break;
+                case 'divide':
+                    if (num2 === 0) {
+                        resultElement.textContent = "Error: Cannot divide by zero.";
+                        return;
+                    }
+                    result = num1 / num2;
+                    break;
+                default:
+                    return;
+            }
+            
+            resultElement.textContent = `Result: ${+result.toFixed(4)}`;
+        }
+        
+        function clearResult() {
+            document.getElementById('num1').value = '';
+            document.getElementById('num2').value = '';
+            document.getElementById('result').textContent = 'Result:';
+        }
+    </script>
+
+</body>
+</html>
